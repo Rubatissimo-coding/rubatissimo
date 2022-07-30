@@ -39,6 +39,10 @@ if (!cached_language) {
       )
       Vue.prototype.$lang = utils.iso_codes[res.country.iso_code] || "en"
     })
+    .catch(err => {
+      console.log(err)
+      Vue.prototype.$lang = "en"
+    })
 } else {
   Vue.prototype.$lang = cached_language
 }
