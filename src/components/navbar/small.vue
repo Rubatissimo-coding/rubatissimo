@@ -51,6 +51,8 @@
 import Vue from "vue"
 import * as icons from "@/components/icons"
 
+console.log(Vue.prototype)
+
 export default {
   data() {
     return {
