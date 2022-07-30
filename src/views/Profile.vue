@@ -1,13 +1,24 @@
 <template>
-  <v-container>
-    Profile
-  </v-container>
+  <div id="profile" class="router-root" style="width: 100%; height: 100%">
+    <v-container fluid style="height: calc(100% - 96px)">
+      Profile
+    </v-container>
+    <footerbar />
+  </div>
 </template>
 
 <script>
+  import Footerbar from "@/components/footer"
+
   export default {
-    data() {
-      return {}
+    components: {
+      Footerbar
     },
+    data() {
+      return {
+      }
+    },
+    methods: {
+    }
   }
 </script>
