@@ -88,4 +88,76 @@ const router = new VueRouter({
   routes
 })
 
+router.afterEach((to, from) => {
+  switch (from.name) {
+    case "home":
+      if (to.name === "about") {
+        to.meta.enterClass = "animate__animated animate__fadeInUp"
+        to.meta.leaveClass = "animate__animated animate__fadeOutUp"
+      } else {
+        to.meta.enterClass = "animate__animated animate__fadeInBottomRight"
+        to.meta.leaveClass = "animate__animated animate__fadeOutTopLeft"
+      }
+      break
+    case "about":
+      if (to.name === "home") {
+        to.meta.enterClass = "animate__animated animate__fadeInDown"
+        to.meta.leaveClass = "animate__animated animate__fadeOutDown"
+      } else {
+        to.meta.enterClass = "animate__animated animate__fadeInRight"
+        to.meta.leaveClass = "animate__animated animate__fadeOutLeft"
+      }
+      break
+    case "videos":
+      if (to.name === "home") {
+        to.meta.enterClass = "animate__animated animate__fadeInTopLeft"
+        to.meta.leaveClass = "animate__animated animate__fadeOutBottomRight"
+      } else if (["about"].includes(to.name)) {
+        to.meta.enterClass = "animate__animated animate__fadeInLeft"
+        to.meta.leaveClass = "animate__animated animate__fadeOutRight"
+      } else {
+        to.meta.enterClass = "animate__animated animate__fadeInRight"
+        to.meta.leaveClass = "animate__animated animate__fadeOutLeft"
+      }
+      break
+    case "store":
+      if (to.name === "home") {
+        to.meta.enterClass = "animate__animated animate__fadeInTopLeft"
+        to.meta.leaveClass = "animate__animated animate__fadeOutBottomRight"
+      } else if (["about", "videos"].includes(to.name)) {
+        to.meta.enterClass = "animate__animated animate__fadeInLeft"
+        to.meta.leaveClass = "animate__animated animate__fadeOutRight"
+      } else {
+        to.meta.enterClass = "animate__animated animate__fadeInRight"
+        to.meta.leaveClass = "animate__animated animate__fadeOutLeft"
+      }
+      break
+    case "courses":
+      if (to.name === "home") {
+        to.meta.enterClass = "animate__animated animate__fadeInTopLeft"
+        to.meta.leaveClass = "animate__animated animate__fadeOutBottomRight"
+      } else if (["about", "videos", "store"].includes(to.name)) {
+        to.meta.enterClass = "animate__animated animate__fadeInLeft"
+        to.meta.leaveClass = "animate__animated animate__fadeOutRight"
+      } else {
+        to.meta.enterClass = "animate__animated animate__fadeInRight"
+        to.meta.leaveClass = "animate__animated animate__fadeOutLeft"
+      }
+      break
+    case "profile":
+    case "login":
+      if (to.name === "home") {
+        to.meta.enterClass = "animate__animated animate__fadeInTopLeft"
+        to.meta.leaveClass = "animate__animated animate__fadeOutBottomRight"
+      } else if (["about", "videos", "store", "courses"].includes(to.name)) {
+        to.meta.enterClass = "animate__animated animate__fadeInLeft"
+        to.meta.leaveClass = "animate__animated animate__fadeOutRight"
+      } else {
+        to.meta.enterClass = "animate__animated animate__fadeInRight"
+        to.meta.leaveClass = "animate__animated animate__fadeOutLeft"
+      }
+      break
+  }
+})
+
 export default router

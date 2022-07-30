@@ -14,55 +14,26 @@
       </v-container>
     </v-app-bar>
 
-    <v-main class="black">
-      <router-view/>
-    </v-main>
 
-    <v-footer
-    dark
-    padless
-  >
-    <v-card
-      flat
-      tile
-      class="white--text text-center black"
-      width="100%"
-    >
-      <v-card-text class="pb-0 d-inline-flex justify-center">
-        <template 
-          v-for="(icon, i) in icons.footer"
+    <v-main class="black pa-0">
+      <v-container fluid class="pa-0 fill-height">
+        <h1 v-if="test">{{ test }}</h1>
+        <transition
+          :enter-active-class="$route.meta.enterClass"
+          :leave-active-class="$route.meta.leaveClass"
         >
-        <span :key="i">
-          <v-hover v-slot="{ hover }">
-            <div>
-              <v-btn
-              class="mx-1"
-              icon
-              >
-                <v-icon :title="icon.tooltip" v-if="hover" :size="icon.name === 'youtube' ? '32px' : '24px'">
-                  ${{ icon.name }}_color
-                </v-icon>
-                <v-icon v-else :size="icon.name === 'youtube' ? '32px' : '24px'">
-                  ${{ icon.name }}_white
-                </v-icon>
-              </v-btn>
-            </div>
-          </v-hover>
-        </span>
-        </template>
-      </v-card-text>
-      <v-card-text class="white--text pt-1">
-        © Kilian Davies {{ new Date().getFullYear() }}
-      </v-card-text>
-    </v-card>
-  </v-footer>
+          <router-view />
+        </transition>
+      </v-container>
+    </v-main>
   </v-app>
 </template>
 
 <script>
-import Vue from "vue"
 import * as icons from "@/components/icons/footer"
 import Navbar from "@/components/navbar"
+import "animate.css"
+
 
 export default {
   name: 'App',
@@ -73,6 +44,8 @@ export default {
   data() {
     return {
       icons: icons,
+      console,
+      test: "",
     }
   },
   mounted() {
@@ -120,4 +93,15 @@ export default {
       }
     }
   }
+
+  .router-root {
+    position: absolute !important;
+    top: 64px !important;
+    left: 0 !important;
+    height: calc(100vh - 64px) !important;
+    width: 100vw !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
 </style>
