@@ -6,9 +6,19 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: "/",
+    name: "root",
+    component: Home
+  },
+  {
     path: "/home",
     name: "home",
-    component: Home
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: function () {
+      return import(/* webpackChunkName: "about" */ "../views/About.vue")
+    }
   },
   {
     path: "/about",
@@ -99,6 +109,7 @@ const router = new VueRouter({
 })
 
 router.afterEach((to, from) => {
+  console.log(`Old route: ${from.path}, New route: ${to.path}`)
   if (!routes.map(route => route.name).includes(to.name)) router.push("/404")
   if (to.path === "/") router.push("/home")
   switch (from.name) {
