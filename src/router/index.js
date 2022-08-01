@@ -79,16 +79,28 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ "../views/SignIn.vue")
     }
+  },
+  {
+    path: "/404",
+    name: "404",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: function () {
+      return import(/* webpackChunkName: "about" */ "../views/404.vue")
+    }
   }
 ]
 
 const router = new VueRouter({
   mode: "history",
-  base: "/home",
+  base: process.env.BASE_URL,
   routes
 })
 
 router.afterEach((to, from) => {
+  if (!routes.map(route => route.name).includes(to.name)) router.push("/404")
+  if (to.path === "/") router.push("/home")
   switch (from.name) {
     case "home":
       if (to.name === "about") {
