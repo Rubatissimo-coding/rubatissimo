@@ -1,10 +1,16 @@
 <template>
-  <v-app>
+  <v-app
+    class="d-flex justify-center align-center overflow-hidden"
+    style="max-width: 1280px; border-radius: 5px; margin-inline: auto;"
+  >
     <v-app-bar
       app
       fixed
       color="black"
       class="white--text"
+      max-width="1280"
+      width="100%"
+      style="left: 50%; transform: translateX(-50%);"
     >
       <v-container fluid class="d-none d-md-flex pa-0" style="height: 100%; width: 100%">
         <navbar-large />
@@ -13,10 +19,8 @@
         <navbar-small />
       </v-container>
     </v-app-bar>
-
-
-    <v-main class="black pa-0">
-      <v-container fluid class="pa-0 fill-height">
+    <v-main class="black pa-0 pt-16">
+      <v-container fluid class="pa-0 fill-height overflow-hidden" style="max-width: 1280px">
         <h1 v-if="test">{{ test }}</h1>
         <transition
           :enter-active-class="$route.meta.enterClass"
@@ -66,9 +70,16 @@ export default {
 </script>
 
 <style lang="scss">
+  body {
+    width: 100%;
+    height: 100%;
+    background: #00001A;
+  }
+
   .v-toolbar__content, .v-expansion-panel-content__wrap {
     padding: 0;
   }
+
 
   .home-active {
     &::before {
@@ -96,10 +107,10 @@ export default {
 
   .router-root {
     position: absolute !important;
-    top: 64px !important;
     left: 0 !important;
     height: calc(100vh - 64px) !important;
-    width: 100vw !important;
+    width: 100% !important;
+    max-width: 100% !important;
     padding: 0 !important;
     margin: 0 !important;
   }

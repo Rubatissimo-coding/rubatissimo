@@ -99,18 +99,15 @@ export default {
   data() {
     
     return {
-      }
+      tiles: []
+    }
   },
   methods: {},
   mounted() {
-    const screenWidth = screen.width
-    let currentScreenWidth = window.innerWidth
-
-    document.querySelector(".keyboard").style.marginLeft = `calc((${currentScreenWidth} - ${screenWidth}) / 2)`
-    window.addEventListener("resize", () => {
-      currentScreenWidth = window.innerWidth
-      document.querySelector(".keyboard").style.marginLeft = `calc((${currentScreenWidth} - ${screenWidth}) / 2)`
-    })
+    const canvas = document.querySelector('canvas'),
+    ctx = canvas.getContext('2d'),
+    keys = document.querySelectorAll('.key'),
+    keyboard = document.querySelector('.keyboard')
   },
 }
 
@@ -284,14 +281,14 @@ root {
 }
 .canvas {
   height: 100%;
-  width: 100vw;
+  width: 100%;
   background-color: #00001a;
   overflow: hidden;
 }
 canvas {
   background-color: #00001a;
   height: 75%;
-  width: clamp(1280px, 100vw, 100vw);
+  width: 100%;
 }
 .keyboard {
   position: relative;
