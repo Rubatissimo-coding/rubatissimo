@@ -1,3 +1,5 @@
+import { tags } from "./maps"
+
 export async function getData() {
   const videos = await getAllChannelVideos("UC0-qBO4E42MO9_F2skwTXSw")
 
@@ -12,15 +14,29 @@ export async function getData() {
       .replaceAll(/(&#39;)/g, "'")
     videoData.thumbnail = data.snippet.thumbnails.medium.url
     let videoTags = data.snippet.tags
-    videoData.composedBy = videoTags.includes("uMRy3Z")
-      ? "kilian"
-      : videoTags.includes("H5Kceo")
-      ? "community"
-      : videoTags.includes("dQpGjV")
-      ? "classical"
-      : videoTags.includes("A457uh")
-      ? "other"
-      : "unhandled"
+    let videoTagsParsed = videoTags
+      .filter(tag => tag.includes(":"))
+      .map(tag => tag.split(":"))
+
+    videoData.tags = {
+      composer: videoTagsParsed
+        .filter(tag => tag[0] === "c")
+        .map(tag => tags.c[tag[1]]),
+      interpreter: videoTagsParsed
+        .filter(tag => tag[0] === "p")
+        .map(tag => tags.p[tag[1]]),
+      instrumentation: videoTagsParsed
+        .filter(tag => tag[0] === "i")
+        .map(tag => tags.i[tag[1]]),
+      melody: videoTagsParsed
+        .filter(tag => tag[0] === "m")
+        .map(tag => tags.m[tag[1]])
+    }
+
+    for (let tag in videoData.tags) {
+      if (!videoData.tags[tag].length) delete videoData.tags[tag]
+    }
+
     videoData.url = `https://www.youtube.com/watch?v=${data.id}`
     videoData.publishedAt = new Date(data.snippet.publishedAt).getTime()
 
