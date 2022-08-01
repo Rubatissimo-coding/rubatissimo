@@ -73,6 +73,15 @@ export default {
       }, 100)
     },
   },
+  beforeMount() {
+    if(this.$lang !== "en") {
+      const indexLang = this.langs.indexOf(this.$lang),
+      indexEn = this.langs.indexOf("en")
+
+      Vue.set(this.langs, indexEn, this.$lang)
+      Vue.set(this.langs, indexLang, "en")
+    }
+  },
   watch: {
     $lang(newVal, oldVal) {
       const indexNewLang = this.langs.indexOf(newVal),
